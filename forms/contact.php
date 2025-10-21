@@ -106,7 +106,7 @@ function sendWithSMTP($recipient, $subject, $name, $email, $message) {
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'nonkululekocekiso1@gmail.com'; // Your Gmail
+        $mail->Username = 'info@life-coaching-works.com'; // Your Gmail
         $mail->Password = 'your_app_password_here'; // Get from https://myaccount.google.com/apppasswords
         $mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
