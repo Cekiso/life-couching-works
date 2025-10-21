@@ -158,14 +158,14 @@
         <p class="text-muted mb-4">
           Fill out the form below and we'll get back to you within 24 hours.
         </p>
-        <form action="https://formspree.io/f/xeorwpke" method="POST" class="formspree-form needs-validation" novalidate>
+        <form action="https://formspree.io/f/xeorwpke" method="POST" class="php-email-form" data-aos="fade-up" novalidate>
           <div class="mb-3">
             <label for="fullName" class="form-label">Full Name *</label>
-            <input type="text" id="fullName" class="form-control" placeholder="Enter your full name" required>
+            <input type="text" name="name" id="fullName" class="form-control" placeholder="Enter your full name" required="">
           </div>
           <div class="mb-3">
             <label for="email" class="form-label">Email Address *</label>
-            <input type="email" id="email" class="form-control" placeholder="Enter your email address" required>
+            <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email address" required="">
           </div>
           <div class="mb-3">
             <label for="helpType" class="form-label">How can we help you? *</label>
@@ -198,7 +198,7 @@
           </fieldset>
           <div class="mb-4">
             <label for="message" class="form-label">Message</label>
-            <textarea id="message" class="form-control" rows="5" placeholder="Tell us more about what you're looking for..."></textarea>
+            <textarea id="message" name="message" class="form-control" rows="5" placeholder="Tell us more about what you're looking for..."></textarea>
           </div>
           <button type="submit" class="btn btn-primary btn-lg w-100">
             <i class="bi bi-send-fill me-2"></i>
