@@ -98,7 +98,7 @@
       let action = thisForm.getAttribute('action');
       
       // Validate action exists
-      if(!action || action.includes('YOUR_FORM_ID')) {
+      if(!action || action.includes('xeorwpke')) {
         displayError(thisForm, 'Please update the form action with your Formspree form ID!');
         return;
       }
