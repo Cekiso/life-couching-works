@@ -158,7 +158,7 @@
         <p class="text-muted mb-4">
           Fill out the form below and we'll get back to you within 24 hours.
         </p>
-        <form class="needs-validation" novalidate>
+        <form action="https://formspree.io/f/xeorwpke" method="POST" class="formspree-form needs-validation" novalidate>
           <div class="mb-3">
             <label for="fullName" class="form-label">Full Name *</label>
             <input type="text" id="fullName" class="form-control" placeholder="Enter your full name" required>
@@ -237,6 +237,7 @@
               <i class="bi bi-calendar2-check-fill me-2"></i>
               Book Your Discovery Call
             </button>
+
           </div>
         </div>
 
@@ -273,6 +274,53 @@
     </div>
   </div>
 </section>
+<!-- Discovery Call Modal -->
+<div class="modal fade" id="discoveryModal" tabindex="-1" aria-labelledby="discoveryModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="discoveryModalLabel">
+          <i class="bi bi-calendar2-check-fill me-2"></i>
+          Book Your Discovery Call
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-info mb-4">
+          <i class="bi bi-camera-video-fill me-2"></i>
+          <strong>Virtual Zoom Session</strong> - All discovery calls are conducted via Zoom for your convenience
+        </div>
+        
+        <p class="mb-3">To book your free 30-minute virtual discovery call with Lindiwe via Zoom, please choose an option:</p>
+        
+        <div class="d-grid gap-3">
+          <!-- Option 1: Email (Primary Option) -->
+          <a href="mailto:info@life-coaching-works.com?subject=Zoom%20Discovery%20Call%20Request&body=Hi%20Lindiwe,%0D%0A%0D%0AI%27d%20like%20to%20book%20a%20free%2030-minute%20virtual%20discovery%20call%20via%20Zoom.%0D%0A%0D%0A━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━%0D%0A%0D%0AYOUR%20DETAILS:%0D%0A%0D%0AFull%20Name:%20%0D%0A%0D%0AEmail%20Address:%20%0D%0A%0D%0APhone%20Number%20(optional):%20%0D%0A%0D%0A━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━%0D%0A%0D%0APREFERRED%20SCHEDULE:%0D%0A%0D%0AOption%201%20-%20Date:%20%0D%0AOption%201%20-%20Time:%20%0D%0A%0D%0AOption%202%20-%20Date:%20%0D%0AOption%202%20-%20Time:%20%0D%0A%0D%0AOption%203%20-%20Date:%20%0D%0AOption%203%20-%20Time:%20%0D%0A%0D%0AYour%20Time%20Zone:%20%0D%0A%0D%0A━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━%0D%0A%0D%0AWHAT%20TO%20DISCUSS:%0D%0A%0D%0APlease%20share%20briefly%20what%20you%27d%20like%20to%20focus%20on%20during%20our%20call:%0D%0A%0D%0A%0D%0A%0D%0A━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━%0D%0A%0D%0AThank%20you!%20I%20look%20forward%20to%20connecting%20with%20you.%0D%0A%0D%0ALindiwe%20will%20send%20you%20a%20Zoom%20link%20once%20the%20call%20is%20confirmed." 
+             class="btn btn-primary btn-lg">
+            <i class="bi bi-envelope-at-fill me-2"></i>
+            Email to Schedule Zoom Call
+          </a>
+          <small class="text-muted text-center mb-3">
+            <i class="bi bi-info-circle me-1"></i>
+            Opens your email app with a pre-filled message. You'll receive a Zoom link once confirmed.
+          </small>
+          
+          <hr class="my-2">
+          <p class="text-center text-muted small mb-2">Other ways to schedule:</p>
+          
+          <!-- Option 2: Fill form with Discovery Call pre-selected -->
+          <button type="button" class="btn btn-outline-primary btn-lg" id="fillFormBtn">
+            <i class="bi bi-envelope-fill me-2"></i>
+            Fill Contact Form
+          </button>
+        </div>
+      </div>
+       <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
  <!-- contact form -->
 
