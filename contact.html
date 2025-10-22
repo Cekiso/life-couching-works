@@ -158,7 +158,7 @@
         <p class="text-muted mb-4">
           Fill out the form below and we'll get back to you within 24 hours.
         </p>
-        <form action="https://formspree.io/f/xeorwpke" method="POST" class="php-email-form" data-aos="fade-up">
+        <form action="https://formspree.io/f/xeorwpke" method="POST" class="php-email-form" data-aos="fade-up" novalidate>
           <div class="mb-3">
             <label for="fullName" class="form-label">Full Name *</label>
             <input type="text" name="name" id="fullName" class="form-control" placeholder="Enter your full name" required="">
@@ -167,11 +167,15 @@
             <label for="email" class="form-label">Email Address *</label>
             <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email address" required="">
           </div>
+          <div class="mb-3" id="phoneField" style="display: none;">
+            <label for="phone" class="form-label">Phone Number *</label>
+            <input type="tel" id="phone" name="phone" class="form-control" placeholder="Enter your phone number">
+          </div>
           <div class="mb-3">
             <label for="helpType" class="form-label">How can we help you? *</label>
             <select id="helpType" name="helpType" class="form-select" required>
               <option selected disabled value="">Select an option</option>
-              <!-- <option value="discovery-call">Book a Free Discovery Call</option> -->
+              <option value="discovery-call">Book a Free Discovery Call</option>
               <option value="coaching">Private Coaching Inquiry</option>
               <option value="group-coaching">Group Coaching</option>
               <option value="program">Program Information</option>
@@ -218,7 +222,6 @@
             <i class="bi bi-send-fill me-2"></i>
             Send Message
           </button>
-          
         </form>
       </div>
       

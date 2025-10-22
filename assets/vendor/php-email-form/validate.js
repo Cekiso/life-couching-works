@@ -86,6 +86,33 @@
 (function () {
   "use strict";
 
+  // Handle contact method change to show/hide phone field
+  let contactMethodRadios = document.querySelectorAll('input[name="contactMethod"]');
+  let phoneField = document.getElementById('phoneField');
+  let phoneInput = document.getElementById('phone');
+  let emailInput = document.getElementById('email');
+
+  contactMethodRadios.forEach(function(radio) {
+    radio.addEventListener('change', function() {
+      if (this.value === 'phone' || this.value === 'whatsapp') {
+        // Show phone field and make it required
+        phoneField.style.display = 'block';
+        phoneInput.setAttribute('required', '');
+        
+        // Make email optional when phone is selected
+        emailInput.removeAttribute('required');
+      } else {
+        // Hide phone field and remove required
+        phoneField.style.display = 'none';
+        phoneInput.removeAttribute('required');
+        phoneInput.value = ''; // Clear phone field when hidden
+        
+        // Make email required again
+        emailInput.setAttribute('required', '');
+      }
+    });
+  });
+
   let forms = document.querySelectorAll('.php-email-form');
 
   forms.forEach(function(form) {
@@ -104,19 +131,35 @@
       // Manual validation for required fields
       let name = thisForm.querySelector('[name="name"]').value.trim();
       let email = thisForm.querySelector('[name="email"]').value.trim();
+      let phone = thisForm.querySelector('[name="phone"]').value.trim();
       let helpType = thisForm.querySelector('[name="helpType"]').value;
+      let contactMethod = thisForm.querySelector('[name="contactMethod"]:checked').value;
       
-      if (!name || !email || !helpType) {
+      if (!name || !helpType) {
         displayError(thisForm, 'Please fill in all required fields.');
         thisForm.classList.add('was-validated');
         return;
       }
       
-      // Validate email format
-      let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailPattern.test(email)) {
-        displayError(thisForm, 'Please enter a valid email address.');
-        return;
+      // Validate based on contact method
+      if (contactMethod === 'email') {
+        if (!email) {
+          displayError(thisForm, 'Please enter your email address.');
+          thisForm.classList.add('was-validated');
+          return;
+        }
+        // Validate email format
+        let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+          displayError(thisForm, 'Please enter a valid email address.');
+          return;
+        }
+      } else if (contactMethod === 'phone' || contactMethod === 'whatsapp') {
+        if (!phone) {
+          displayError(thisForm, 'Please enter your phone number.');
+          thisForm.classList.add('was-validated');
+          return;
+        }
       }
       
       // Show loading, hide other messages
@@ -143,7 +186,7 @@
         
         if(response.ok) {
           // Show pop-up alert
-          alert('✅ Success! Your message has been sent. We\'ll get back to you!');
+          alert('✅ Success! Your message has been sent. We\'ll get back to you within 24 hours!');
           
           if(successEl) successEl.classList.add('d-block');
           thisForm.reset(); // This clears all form fields
