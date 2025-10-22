@@ -158,7 +158,7 @@
         <p class="text-muted mb-4">
           Fill out the form below and we'll get back to you within 24 hours.
         </p>
-        <form action="https://formspree.io/f/xeorwpke" method="POST" class="php-email-form" data-aos="fade-up" novalidate>
+        <form action="https://formspree.io/f/xeorwpke" method="POST" class="php-email-form" data-aos="fade-up">
           <div class="mb-3">
             <label for="fullName" class="form-label">Full Name *</label>
             <input type="text" name="name" id="fullName" class="form-control" placeholder="Enter your full name" required="">
@@ -169,9 +169,9 @@
           </div>
           <div class="mb-3">
             <label for="helpType" class="form-label">How can we help you? *</label>
-            <select id="helpType" class="form-select" required>
-              <option selected disabled>Select an option</option>
-              <option value="discovery-call">Book a Free Discovery Call</option>
+            <select id="helpType" name="helpType" class="form-select" required>
+              <option selected disabled value="">Select an option</option>
+              <!-- <option value="discovery-call">Book a Free Discovery Call</option> -->
               <option value="coaching">Private Coaching Inquiry</option>
               <option value="group-coaching">Group Coaching</option>
               <option value="program">Program Information</option>
@@ -200,10 +200,25 @@
             <label for="message" class="form-label">Message</label>
             <textarea id="message" name="message" class="form-control" rows="5" placeholder="Tell us more about what you're looking for..."></textarea>
           </div>
+          
+          <!-- Loading and Message Elements -->
+          <div class="loading d-none mb-3">
+            <div class="spinner-border spinner-border-sm me-2" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            Sending your message...
+          </div>
+          <div class="error-message d-none mb-3 alert alert-danger" role="alert"></div>
+          <div class="sent-message d-none mb-3 alert alert-success" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i>
+            Your message has been sent successfully. We'll get back to you within 24 hours!
+          </div>
+          
           <button type="submit" class="btn btn-primary btn-lg w-100">
             <i class="bi bi-send-fill me-2"></i>
             Send Message
           </button>
+          
         </form>
       </div>
       

@@ -55,11 +55,12 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
 // Sanitize and validate input
 $name = isset($_POST["name"]) ? strip_tags(trim($_POST["name"])) : '';
 $email = isset($_POST["email"]) ? filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL) : '';
-$subject = isset($_POST["subject"]) ? strip_tags(trim($_POST["subject"])) : '';
+$helpType = isset($_POST["helpType"]) ? strip_tags(trim($_POST["helpType"])) : '';
+$contactMethod = isset($_POST["contactMethod"]) ? strip_tags(trim($_POST["contactMethod"])) : '';
 $message = isset($_POST["message"]) ? strip_tags(trim($_POST["message"])) : '';
 
 // Validate required fields
-if (empty($name) || empty($message) || empty($subject)) {
+if (empty($name) || empty($message) || empty($helpType)) {
     http_response_code(400);
     die("Please fill in all required fields.");
 }
@@ -71,14 +72,16 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 }
 
 // Set recipient email
-$recipient = "nonkululekocekiso1@gmail.com";
+$recipient = "info@life-coaching-works.com";
 
 // OPTION 1: Try PHP mail() function first (works on most shared hosting)
-function sendWithPHPMail($recipient, $subject, $name, $email, $message) {
-    $email_subject = "New Contact Form: " . $subject;
+function sendWithPHPMail($recipient, $helpType, $name, $email, $contactMethod, $message) {
+    $email_subject = "New Contact Form: " . $helpType;
     
     $email_content = "Name: $name\n";
-    $email_content .= "Email: $email\n\n";
+    $email_content .= "Email: $email\n";
+    $email_content .= "Help Type: $helpType\n";
+    $email_content .= "Preferred Contact Method: $contactMethod\n\n";
     $email_content .= "Message:\n$message\n";
     
     $email_headers = "From: $name <$email>\r\n";
@@ -89,7 +92,7 @@ function sendWithPHPMail($recipient, $subject, $name, $email, $message) {
 }
 
 // OPTION 2: Use PHPMailer with SMTP (more reliable, requires PHPMailer library)
-function sendWithSMTP($recipient, $subject, $name, $email, $message) {
+function sendWithSMTP($recipient, $helpType, $name, $email, $contactMethod, $message) {
     // Check if PHPMailer is available
     if (!file_exists('PHPMailer/PHPMailer.php')) {
         return false;
@@ -118,8 +121,8 @@ function sendWithSMTP($recipient, $subject, $name, $email, $message) {
         
         // Content
         $mail->isHTML(false);
-        $mail->Subject = "New Contact Form: " . $subject;
-        $mail->Body = "Name: $name\n\nEmail: $email\n\nMessage:\n$message";
+        $mail->Subject = "New Contact Form: " . $helpType;
+        $mail->Body = "Name: $name\n\nEmail: $email\n\nHelp Type: $helpType\n\nPreferred Contact Method: $contactMethod\n\nMessage:\n$message";
         
         $mail->send();
         return true;
@@ -134,12 +137,12 @@ $sent = false;
 
 // Try SMTP first (if configured)
 if (file_exists('PHPMailer/PHPMailer.php')) {
-    $sent = sendWithSMTP($recipient, $subject, $name, $email, $message);
+    $sent = sendWithSMTP($recipient, $helpType, $name, $email, $contactMethod, $message);
 }
 
 // Fallback to PHP mail() if SMTP failed or unavailable
 if (!$sent) {
-    $sent = sendWithPHPMail($recipient, $subject, $name, $email, $message);
+    $sent = sendWithPHPMail($recipient, $helpType, $name, $email, $contactMethod, $message);
 }
 
 // Return response

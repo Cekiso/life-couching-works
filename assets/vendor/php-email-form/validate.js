@@ -86,7 +86,7 @@
 (function () {
   "use strict";
 
-  let forms = document.querySelectorAll('.formspree-form');
+  let forms = document.querySelectorAll('.php-email-form');
 
   forms.forEach(function(form) {
     form.addEventListener('submit', function(event) {
@@ -96,21 +96,37 @@
       let action = thisForm.getAttribute('action');
       
       // Validate action exists
-      if(!action || action.includes('xeorwpke')) {
-        displayError(thisForm, 'Please update the form action with your Formspree form ID!');
+      if(!action) {
+        displayError(thisForm, 'The form action property is not set!');
         return;
       }
       
-      // Check HTML5 validation
-      if (!thisForm.checkValidity()) {
+      // Manual validation for required fields
+      let name = thisForm.querySelector('[name="name"]').value.trim();
+      let email = thisForm.querySelector('[name="email"]').value.trim();
+      let helpType = thisForm.querySelector('[name="helpType"]').value;
+      
+      if (!name || !email || !helpType) {
+        displayError(thisForm, 'Please fill in all required fields.');
         thisForm.classList.add('was-validated');
         return;
       }
       
+      // Validate email format
+      let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        displayError(thisForm, 'Please enter a valid email address.');
+        return;
+      }
+      
       // Show loading, hide other messages
-      thisForm.querySelector('.loading').classList.add('d-block');
-      thisForm.querySelector('.error-message').classList.remove('d-block');
-      thisForm.querySelector('.sent-message').classList.remove('d-block');
+      let loadingEl = thisForm.querySelector('.loading');
+      let errorEl = thisForm.querySelector('.error-message');
+      let successEl = thisForm.querySelector('.sent-message');
+      
+      if(loadingEl) loadingEl.classList.add('d-block');
+      if(errorEl) errorEl.classList.remove('d-block');
+      if(successEl) successEl.classList.remove('d-block');
 
       let formData = new FormData(thisForm);
 
@@ -123,12 +139,20 @@
         }
       })
       .then(response => {
-        thisForm.querySelector('.loading').classList.remove('d-block');
+        if(loadingEl) loadingEl.classList.remove('d-block');
         
         if(response.ok) {
-          thisForm.querySelector('.sent-message').classList.add('d-block');
-          thisForm.reset();
+          // Show pop-up alert
+          alert('✅ Success! Your message has been sent. We\'ll get back to you!');
+          
+          if(successEl) successEl.classList.add('d-block');
+          thisForm.reset(); // This clears all form fields
           thisForm.classList.remove('was-validated');
+          
+          // Optionally hide success message after 8 seconds
+          setTimeout(() => {
+            if(successEl) successEl.classList.remove('d-block');
+          }, 8000);
         } else {
           return response.json().then(data => {
             if(data.errors) {
@@ -136,19 +160,27 @@
             } else {
               throw new Error('Form submission failed. Please try again.');
             }
+          }).catch(() => {
+            throw new Error('Form submission failed. Please try again.');
           });
         }
       })
       .catch((error) => {
+        if(loadingEl) loadingEl.classList.remove('d-block');
         displayError(thisForm, error.message || 'An error occurred. Please try again or contact us directly.');
       });
     });
   });
 
   function displayError(thisForm, error) {
-    thisForm.querySelector('.loading').classList.remove('d-block');
-    thisForm.querySelector('.error-message').innerHTML = error;
-    thisForm.querySelector('.error-message').classList.add('d-block');
+    let loadingEl = thisForm.querySelector('.loading');
+    let errorEl = thisForm.querySelector('.error-message');
+    
+    if(loadingEl) loadingEl.classList.remove('d-block');
+    if(errorEl) {
+      errorEl.innerHTML = '<i class="bi bi-exclamation-triangle-fill me-2"></i>' + error;
+      errorEl.classList.add('d-block');
+    }
   }
 
 })();
