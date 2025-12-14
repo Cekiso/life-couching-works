@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Book Your Session - Life Coaching Works</title>
+
+  <!-- Favicons -->
+  <link href="assets/img/works-logo.png" rel="icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+  
+  <!-- Inline Styles -->
+  <style>
+    .min-vh-100 { min-height: 100vh; }
+    .max-w-5xl { max-width: 1024px; margin: 0 auto; }
+    .shadow-soft { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+    .gradient-text {
+      background: linear-gradient(135deg, #0d6efd, #6610f2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .gradient-card {
+      background: linear-gradient(135deg, rgba(13, 110, 253, 0.05), rgba(102, 16, 242, 0.05));
+    }
+    
+    #calendar {
+      border: 1px solid #dee2e6;
+      border-radius: 0.375rem;
+      padding: 1rem;
+      background: white;
+      width: 100%;
+      max-width: 350px;
+      margin: 0 auto;
+    }
+    
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid #e9ecef;
+    }
+    
+    .calendar-header h4 {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    
+    .calendar-nav {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      color: #0d6efd;
+      border-radius: 0.25rem;
+      min-width: 35px;
+      height: 35px;
+    }
+    
+    .calendar-nav:hover {
+      background: rgba(13, 110, 253, 0.1);
+    }
+    
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0.25rem;
+    }
+    
+    .calendar-day-header {
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.75rem;
+      color: #6c757d;
+      padding: 0.5rem 0.25rem;
+    }
+    
+    .calendar-day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0.375rem;
+      cursor: pointer;
+      font-size: 0.875rem;
+      border: 2px solid transparent;
+      background: white;
+      min-height: 40px;
+      font-weight: 500;
+    }
+    
+    .calendar-day:hover:not(.disabled):not(.selected) {
+      background: rgba(13, 110, 253, 0.1);
+      border-color: rgba(13, 110, 253, 0.3);
+    }
+    
+    .calendar-day.disabled {
+      color: #dee2e6;
+      cursor: not-allowed;
+      background: #f8f9fa;
+    }
+    
+    .calendar-day.holiday {
+      background: #fff3cd;
+      color: #856404;
+      cursor: not-allowed;
+      position: relative;
+    }
+    
+    .calendar-day.holiday::after {
+      content: '🎉';
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      font-size: 10px;
+    }
+    
+    .calendar-day.selected {
+      background: #0d6efd !important;
+      color: white !important;
+      font-weight: 600;
+    }
+    
+    .calendar-day.today {
+      border-color: #0d6efd;
+      font-weight: 600;
+    }
+    
+    #timeSlotsContainer {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    
+    .time-slot-btn {
+      width: 100%;
+      text-align: left;
+      padding: 0.75rem 1rem;
+      border: 2px solid #dee2e6;
+      border-radius: 0.375rem;
+      background: white;
+      margin-bottom: 0.75rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .time-slot-btn:hover:not(:disabled) {
+      border-color: #0d6efd;
+      background: rgba(13, 110, 253, 0.05);
+    }
+    
+    .time-slot-btn.selected {
+      border-color: #0d6efd;
+      background: #0d6efd;
+      color: white;
+    }
+    
+    .time-slot-btn:disabled {
+      background: #f8f9fa;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+    
+    .time-slot-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.25rem;
+    }
+    
+    .time-slot-time {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    
+    .time-slot-info {
+      font-size: 0.75rem;
+      opacity: 0.8;
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: #6c757d;
+    }
+    
+    .empty-state i {
+      font-size: 3rem;
+      opacity: 0.5;
+      margin-bottom: 1rem;
+    }
+    
+    .contact-info-display {
+      background: #e7f3ff;
+      border-left: 4px solid #0d6efd;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      border-radius: 0.375rem;
+    }
+    
+    .contact-info-display h6 {
+      color: #0d6efd;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    .contact-info-display p {
+      margin: 0.25rem 0;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+
+<body class="service-details-page">
+
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center">
+        <img src="assets/img/works-logo.png" alt="">
+      </a>
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="About.html">About</a></li>
+          <li><a href="programs.html">Programs</a></li>
+          <li><a href="workshop.html">Workshops</a></li>
+          <li><a href="coaching.html">Coaching</a></li>
+          <li><a href="speaker.html">Speaking</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="page-title dark-background">
+      <div class="container position-relative">
+        <h1>Book Your Session</h1>
+        <p>Select your preferred date and time</p>
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li class="current">Booking</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+
+    <section class="py-5 starter-section section">
+      <div class="container max-w-5xl">
+        
+        <!-- Display Contact Info -->
+        <div id="contactInfoDisplay" class="contact-info-display" style="display: none;">
+          <h6><i class="bi bi-person-check-fill me-2"></i>Your Information</h6>
+          <div id="contactInfoContent"></div>
+        </div>
+        
+        <!-- Header Card -->
+        <div class="card shadow-soft mb-4">
+          <div class="card-body text-center py-4">
+            <span class="badge bg-secondary px-3 py-2 mb-3">
+              <i class="bi bi-calendar-check me-2"></i>
+              Step 2: Select Date & Time
+            </span>
+            <h1 class="card-title display-5 fw-bold gradient-text mb-3">
+              Choose Your Appointment Slot
+            </h1>
+            <p class="card-text text-muted fs-6">
+              Pick a date and time that works best for you
+            </p>
+          </div>
+        </div>
+
+        <div class="row g-4 mb-4">
+          <div class="col-lg-6">
+            <div class="card shadow-soft h-100">
+              <div class="card-header bg-white">
+                <h5 class="card-title mb-1">
+                  <i class="bi bi-calendar-check text-primary me-2"></i>
+                  Select Date
+                </h5>
+                <p class="card-text text-muted small mb-0">
+                  Pick a date from the available slots
+                </p>
+              </div>
+              <div class="card-body d-flex flex-column align-items-center">
+                <div id="calendar"></div>
+                
+                <!-- Calendar Legend -->
+                <div class="mt-3 w-100" style="max-width: 350px;">
+                  <small class="text-muted d-block mb-2"><strong>Legend:</strong></small>
+                  <div class="d-flex flex-wrap gap-2">
+                    <small class="text-muted">
+                      <span class="badge bg-secondary">🗓️</span> Available
+                    </small>
+                    <small class="text-muted">
+                      <span class="badge" style="background: #fff3cd; color: #856404;">🎉</span> Holiday
+                    </small>
+                    <small class="text-muted">
+                      <span class="badge bg-light text-dark">🚫</span> Unavailable
+                    </small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="card shadow-soft h-100">
+              <div class="card-header bg-white">
+                <h5 class="card-title mb-1">
+                  <i class="bi bi-clock text-primary me-2"></i>
+                  Select Time
+                </h5>
+                <p class="card-text text-muted small mb-0" id="timeSlotDescription">
+                  Please select a date first
+                </p>
+              </div>
+              <div class="card-body">
+                <div id="timeSlotsContainer">
+                  <div class="empty-state">
+                    <i class="bi bi-calendar-check"></i>
+                    <p>Select a date to view available time slots</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card shadow-soft gradient-card">
+          <div class="card-body py-3">
+            <div class="d-flex flex-column flex-sm-row align-items-center justify-content-between gap-3">
+              <div class="d-flex gap-2 w-100 w-sm-auto ms-auto ps-sm-9">
+                <i class="bi bi-calendar-check fs-3 text-primary"></i>
+                <div>
+                  <p class="text-muted small mb-0">Selected Appointment</p>
+                  <p class="fw-bold text-primary mb-0 fs-5" id="selectedBooking">
+                    No slot selected
+                  </p>
+                </div>
+              </div>
+              <div class="d-flex gap-2 w-100 w-sm-auto">
+                <a href="contact.html" class="btn btn-outline-secondary flex-fill flex-sm-grow-0">
+                  <i class="bi bi-arrow-left me-2"></i>
+                  Back
+                </a>
+                <button type="button" class="btn btn-primary flex-fill flex-sm-grow-0" id="confirmBookingBtn" disabled onclick="confirmFinalBooking()">
+                  <i class="bi bi-check-circle me-2"></i>
+                  Complete Booking
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Toast Container -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div id="toast" class="toast align-items-center border-0" role="alert">
+        <div class="d-flex">
+          <div class="toast-body" id="toastMessage"></div>
+          <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer id="footer" class="footer light-background">
+    <div class="container">
+      <h3 class="sitename">Life Coaching Works</h3>
+      <p>Life Coaching Works is a transformative coaching service targeting professionals at various career stages.</p>
+      <div class="social-links d-flex justify-content-center">
+        <a href="https://www.facebook.com/share/16H2MY2Jxg/"><i class="bi bi-facebook"></i></a>
+        <a href="https://www.instagram.com/stories/lindiwe.radebe66/3679529287610140161"><i class="bi bi-instagram"></i></a>
+        <a href="https://vm.tiktok.com/ZSHv8BCBg3YHF-TxXBq/"><i class="bi bi-tiktok"></i></a>
+        <a href="https://www.linkedin.com/in/lindiwe-radebe-7409b2171/"><i class="bi bi-linkedin"></i></a>
+        <a href="https://wa.me/+27745617308"><i class="bi bi-whatsapp"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    console.log('✅ Booking system starting...');
+    
+    // PUBLIC HOLIDAYS CONFIGURATION
+    // Add your country's public holidays here in format: 'YYYY-MM-DD'
+    var publicHolidays = [
+      // South Africa Public Holidays 2024-2025
+      '2024-12-16', // Day of Reconciliation
+      '2024-12-25', // Christmas Day
+      '2024-12-26', // Day of Goodwill
+      '2025-01-01', // New Year's Day
+      '2025-03-21', // Human Rights Day
+      '2025-04-18', // Good Friday
+      '2025-04-21', // Family Day
+      '2025-04-27', // Freedom Day
+      '2025-05-01', // Workers' Day
+      '2025-06-16', // Youth Day
+      '2025-08-09', // National Women's Day
+      '2025-09-24', // Heritage Day
+      '2025-12-16', // Day of Reconciliation
+      '2025-12-25', // Christmas Day
+      '2025-12-26', // Day of Goodwill
+      // Add more years as needed
+      '2026-01-01', // New Year's Day
+      '2026-03-21', // Human Rights Day
+      // You can add holidays for multiple years
+    ];
+    
+    // Holiday names for display (optional)
+    var holidayNames = {
+      '2024-12-16': 'Day of Reconciliation',
+      '2024-12-25': 'Christmas Day',
+      '2024-12-26': 'Day of Goodwill',
+      '2025-01-01': 'New Year\'s Day',
+      '2025-03-21': 'Human Rights Day',
+      '2025-04-18': 'Good Friday',
+      '2025-04-21': 'Family Day',
+      '2025-04-27': 'Freedom Day',
+      '2025-05-01': 'Workers\' Day',
+      '2025-06-16': 'Youth Day',
+      '2025-08-09': 'National Women\'s Day',
+      '2025-09-24': 'Heritage Day',
+      '2025-12-16': 'Day of Reconciliation',
+      '2025-12-25': 'Christmas Day',
+      '2025-12-26': 'Day of Goodwill',
+    };
+    
+    // State
+    var selectedDate = null;
+    var selectedTime = null;
+    var currentMonth = new Date().getMonth();
+    var currentYear = new Date().getFullYear();
+    var contactData = null;
+    
+    // Time slots configuration
+    var timeSlots = [];
+    for (var hour = 9; hour <= 17; hour++) {
+      for (var minute = 0; minute < 60; minute += 30) {
+        if (hour === 17 && minute > 0) break;
+        var isPM = hour >= 12;
+        var hour12 = hour % 12 || 12;
+        var timeStr = (hour12 < 10 ? '0' : '') + hour12 + ':' + (minute < 10 ? '0' : '') + minute + ' ' + (isPM ? 'PM' : 'AM');
+        timeSlots.push({ time: timeStr, capacity: 10 });
+      }
+    }
+    
+    function getBookings() {
+      var b = localStorage.getItem('bookings');
+      return b ? JSON.parse(b) : {};
+    }
+    
+    function getBookedCount(date, time) {
+      var bookings = getBookings();
+      var key = date.toISOString().split('T')[0];
+      return (bookings[key] && bookings[key][time]) ? bookings[key][time] : 0;
+    }
+    
+    function isDateDisabled(date) {
+      var day = date.getDay();
+      
+      // Check if it's a weekend
+      if (day === 0 || day === 6) return true;
+      
+      // Check if it's in the past
+      var today = new Date();
+      today.setHours(0, 0, 0, 0);
+      if (date < today) return true;
+      
+      // Check if it's a public holiday
+      var dateString = date.toISOString().split('T')[0];
+      if (publicHolidays.indexOf(dateString) !== -1) {
+        console.log('🚫 Public holiday blocked:', dateString, holidayNames[dateString] || '');
+        return true;
+      }
+      
+      return false;
+    }
+    
+    function renderCalendar() {
+      var cal = document.getElementById('calendar');
+      var months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+      var days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+      var firstDay = new Date(currentYear, currentMonth, 1).getDay();
+      var daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+      var today = new Date();
+      
+      var html = '<div class="calendar-header">';
+      html += '<button class="calendar-nav" onclick="changeMonth(-1)"><i class="bi bi-chevron-left"></i></button>';
+      html += '<h4>' + months[currentMonth] + ' ' + currentYear + '</h4>';
+      html += '<button class="calendar-nav" onclick="changeMonth(1)"><i class="bi bi-chevron-right"></i></button>';
+      html += '</div><div class="calendar-grid">';
+      
+      for (var i = 0; i < 7; i++) html += '<div class="calendar-day-header">' + days[i] + '</div>';
+      for (var i = 0; i < firstDay; i++) html += '<div class="calendar-day disabled"></div>';
+      
+      for (var day = 1; day <= daysInMonth; day++) {
+        var date = new Date(currentYear, currentMonth, day);
+        var dateString = date.toISOString().split('T')[0];
+        var isDisabled = isDateDisabled(date);
+        var isHoliday = publicHolidays.indexOf(dateString) !== -1;
+        var isToday = date.toDateString() === today.toDateString();
+        var isSelected = selectedDate && date.toDateString() === selectedDate.toDateString();
+        var cls = 'calendar-day';
+        if (isDisabled) cls += ' disabled';
+        if (isHoliday) cls += ' holiday';
+        if (isToday && !isDisabled) cls += ' today';
+        if (isSelected) cls += ' selected';
+        
+        var title = '';
+        if (isHoliday) {
+          title = 'title="' + (holidayNames[dateString] || 'Public Holiday') + '"';
+        }
+        
+        html += '<div class="' + cls + '" ' + title + ' onclick="selectDate(' + currentYear + ',' + currentMonth + ',' + day + ')"';
+        if (isDisabled) html += ' style="pointer-events:none"';
+        html += '>' + day + '</div>';
+      }
+      
+      html += '</div>';
+      cal.innerHTML = html;
+    }
+    
+    function changeMonth(delta) {
+      currentMonth += delta;
+      if (currentMonth > 11) { currentMonth = 0; currentYear++; }
+      else if (currentMonth < 0) { currentMonth = 11; currentYear--; }
+      renderCalendar();
+    }
+    
+    function selectDate(y, m, d) {
+      selectedDate = new Date(y, m, d);
+      selectedTime = null;
+      renderCalendar();
+      renderTimeSlots();
+      updateSummary();
+    }
+    
+    function renderTimeSlots() {
+      var cont = document.getElementById('timeSlotsContainer');
+      var desc = document.getElementById('timeSlotDescription');
+      
+      if (!selectedDate) {
+        cont.innerHTML = '<div class="empty-state"><i class="bi bi-calendar-check"></i><p>Select a date to view available time slots</p></div>';
+        desc.textContent = 'Please select a date first';
+        return;
+      }
+      
+      desc.textContent = 'Available slots for ' + selectedDate.toLocaleDateString();
+      var html = '';
+      
+      for (var i = 0; i < timeSlots.length; i++) {
+        var slot = timeSlots[i];
+        var booked = getBookedCount(selectedDate, slot.time);
+        var full = booked >= slot.capacity;
+        var avail = slot.capacity - booked;
+        var sel = selectedTime === slot.time;
+        
+        html += '<button class="time-slot-btn ' + (sel ? 'selected' : '') + '" ';
+        if (full) html += 'disabled ';
+        html += 'onclick="selectTime(\'' + slot.time + '\')">';
+        html += '<div class="time-slot-header"><span class="time-slot-time">';
+        if (sel) html += '<i class="bi bi-check-circle me-2"></i>';
+        html += slot.time + '</span>';
+        html += full ? '<span class="badge bg-danger">Fully Booked</span>' : '<span class="badge bg-secondary">' + avail + ' spot' + (avail !== 1 ? 's' : '') + ' left</span>';
+        html += '</div><div class="time-slot-info">' + booked + '/' + slot.capacity + ' participants</div></button>';
+      }
+      
+      cont.innerHTML = html;
+    }
+    
+    function selectTime(time) {
+      selectedTime = time;
+      renderTimeSlots();
+      updateSummary();
+    }
+    
+    function updateSummary() {
+      var sum = document.getElementById('selectedBooking');
+      var btn = document.getElementById('confirmBookingBtn');
+      
+      if (selectedDate && selectedTime) {
+        sum.textContent = selectedDate.toLocaleDateString() + ' at ' + selectedTime;
+        btn.disabled = false;
+      } else {
+        sum.textContent = 'No slot selected';
+        btn.disabled = true;
+      }
+    }
+    
+    function confirmFinalBooking() {
+      if (!selectedDate || !selectedTime) {
+        alert('Please select both date and time');
+        return;
+      }
+      
+      if (!contactData) {
+        alert('Contact information not found. Please go back to the contact form.');
+        window.location.href = 'contact.html';
+        return;
+      }
+      
+      var btn = document.getElementById('confirmBookingBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Submitting...';
+      
+      // Create complete booking data
+      var bookingData = new FormData();
+      bookingData.append('name', contactData.name);
+      bookingData.append('email', contactData.email);
+      bookingData.append('phone', contactData.phone || '');
+      bookingData.append('help_type', contactData.helpType || '');
+      bookingData.append('contact_method', contactData.contactMethod || '');
+      bookingData.append('message', contactData.message || '');
+      bookingData.append('booking_date', selectedDate.toISOString().split('T')[0]);
+      bookingData.append('booking_time', selectedTime);
+      bookingData.append('booking_id', 'BK' + Date.now());
+      bookingData.append('_subject', 'New Booking: ' + contactData.name + ' - ' + selectedDate.toLocaleDateString() + ' at ' + selectedTime);
+      
+      console.log('📤 Submitting final booking to Formspree...');
+      
+      // Submit FINAL booking to Formspree
+      fetch('https://formspree.io/f/xzznwkgp', {
+        method: 'POST',
+        body: bookingData,
+        headers: { 'Accept': 'application/json' }
+      })
+      .then(function(response) { return response.json(); })
+      .then(function(data) {
+        if (data.ok) {
+          console.log('✅ Final booking submitted successfully!');
+          
+          // Save to localStorage
+          var bookings = getBookings();
+          var key = selectedDate.toISOString().split('T')[0];
+          if (!bookings[key]) bookings[key] = {};
+          if (!bookings[key][selectedTime]) bookings[key][selectedTime] = 0;
+          bookings[key][selectedTime]++;
+          localStorage.setItem('bookings', JSON.stringify(bookings));
+          
+          // Clear session data
+          sessionStorage.removeItem('contactFormData');
+          
+          // Success message
+          alert('✅ Booking Confirmed!\n\nYour appointment has been scheduled for:\n' + selectedDate.toLocaleDateString() + ' at ' + selectedTime + '\n\nYou will receive a confirmation email shortly at ' + contactData.email);
+          
+          // Redirect to home
+          setTimeout(function() {
+            window.location.href = 'books.html';
+          }, 2000);
+        } else {
+          throw new Error('Booking failed');
+        }
+      })
+      .catch(function(error) {
+        console.error('❌ Booking error:', error);
+        alert('Sorry, there was an error submitting your booking. Please try again.');
+        btn.disabled = false;
+        btn.innerHTML = '<i class="bi bi-check-circle me-2"></i>Complete Booking';
+      });
+    }
+    
+    // Initialize on load
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('✅ DOM loaded, initializing booking...');
+      
+      // Load contact form data
+      var saved = sessionStorage.getItem('contactFormData');
+      if (!saved) {
+        alert('⚠️ No contact information found.\n\nPlease fill out the contact form first.');
+        window.location.href = 'contact.html';
+        return;
+      }
+      
+      contactData = JSON.parse(saved);
+      console.log('✅ Contact data loaded:', contactData);
+      
+      // Display contact info
+      var display = document.getElementById('contactInfoDisplay');
+      var content = document.getElementById('contactInfoContent');
+      var html = '<p><strong>Name:</strong> ' + contactData.name + '</p>';
+      html += '<p><strong>Email:</strong> ' + contactData.email + '</p>';
+      if (contactData.phone) html += '<p><strong>Phone:</strong> ' + contactData.phone + '</p>';
+      if (contactData.helpType) html += '<p><strong>Service:</strong> ' + contactData.helpType + '</p>';
+      content.innerHTML = html;
+      display.style.display = 'block';
+      
+      renderCalendar();
+      updateSummary();
+      
+      console.log('✅ Booking system ready!');
+    });
+  </script>
+</body>
+</html>
