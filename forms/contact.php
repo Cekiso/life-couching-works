@@ -98,6 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
 // Sanitize and validate input
 $name = isset($_POST["name"]) ? strip_tags(trim($_POST["name"])) : '';
 $email = isset($_POST["email"]) ? filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL) : '';
+$phone = isset($_POST["phone"]) ? strip_tags(trim($_POST["phone"])) : '';
 $helpType = isset($_POST["helpType"]) ? strip_tags(trim($_POST["helpType"])) : '';
 $contactMethod = isset($_POST["contactMethod"]) ? strip_tags(trim($_POST["contactMethod"])) : '';
 $message = isset($_POST["message"]) ? strip_tags(trim($_POST["message"])) : '';
@@ -114,15 +115,51 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     die("Please enter a valid email address.");
 }
 
+// Phone validation function (South African formats only)
+function validatePhoneNumber($phone) {
+    if (empty($phone)) {
+        return false;
+    }
+    
+    // Remove spaces, dashes, and parentheses
+    $cleaned = preg_replace('/[\s\-\(\)]/', '', $phone);
+    
+    // Check for valid South African formats:
+    // +27XXXXXXXXX (country code + 9 digits)
+    // 0XXXXXXXXX (10 digits starting with 0)
+    $pattern = '/^(\+27[0-9]{9}|0[0-9]{9})$/';
+    
+    return preg_match($pattern, $cleaned);
+}
+
+// Validate phone number if contact method is phone or WhatsApp
+if ($contactMethod === 'phone' || $contactMethod === 'whatsapp') {
+    if (empty($phone)) {
+        http_response_code(400);
+        die("Phone number is required when selecting Phone or WhatsApp as contact method.");
+    }
+    
+    if (!validatePhoneNumber($phone)) {
+        http_response_code(400);
+        die("Please enter a valid South African phone number (e.g., +27821234567 or 0821234567).");
+    }
+}
+
 // Set recipient email
 $recipient = "info@life-coachingworks.com";
 
 // OPTION 1: Try PHP mail() function first (works on most shared hosting)
-function sendWithPHPMail($recipient, $helpType, $name, $email, $contactMethod, $message) {
+function sendWithPHPMail($recipient, $helpType, $name, $email, $phone, $contactMethod, $message) {
     $email_subject = "New Contact Form: " . $helpType;
     
     $email_content = "Name: $name\n";
     $email_content .= "Email: $email\n";
+    
+    // Include phone number if provided
+    if (!empty($phone)) {
+        $email_content .= "Phone: $phone\n";
+    }
+    
     $email_content .= "Help Type: $helpType\n";
     $email_content .= "Preferred Contact Method: $contactMethod\n\n";
     $email_content .= "Message:\n$message\n";
@@ -135,7 +172,7 @@ function sendWithPHPMail($recipient, $helpType, $name, $email, $contactMethod, $
 }
 
 // OPTION 2: Use PHPMailer with SMTP (more reliable, requires PHPMailer library)
-function sendWithSMTP($recipient, $helpType, $name, $email, $contactMethod, $message) {
+function sendWithSMTP($recipient, $helpType, $name, $email, $phone, $contactMethod, $message) {
     // Check if PHPMailer is available
     if (!file_exists('PHPMailer/PHPMailer.php')) {
         return false;
@@ -165,7 +202,17 @@ function sendWithSMTP($recipient, $helpType, $name, $email, $contactMethod, $mes
         // Content
         $mail->isHTML(false);
         $mail->Subject = "New Contact Form: " . $helpType;
-        $mail->Body = "Name: $name\n\nEmail: $email\n\nHelp Type: $helpType\n\nPreferred Contact Method: $contactMethod\n\nMessage:\n$message";
+        
+        $body = "Name: $name\n\nEmail: $email\n\n";
+        
+        // Include phone number if provided
+        if (!empty($phone)) {
+            $body .= "Phone: $phone\n\n";
+        }
+        
+        $body .= "Help Type: $helpType\n\nPreferred Contact Method: $contactMethod\n\nMessage:\n$message";
+        
+        $mail->Body = $body;
         
         $mail->send();
         return true;
@@ -180,12 +227,12 @@ $sent = false;
 
 // Try SMTP first (if configured)
 if (file_exists('PHPMailer/PHPMailer.php')) {
-    $sent = sendWithSMTP($recipient, $helpType, $name, $email, $contactMethod, $message);
+    $sent = sendWithSMTP($recipient, $helpType, $name, $email, $phone, $contactMethod, $message);
 }
 
 // Fallback to PHP mail() if SMTP failed or unavailable
 if (!$sent) {
-    $sent = sendWithPHPMail($recipient, $helpType, $name, $email, $contactMethod, $message);
+    $sent = sendWithPHPMail($recipient, $helpType, $name, $email, $phone, $contactMethod, $message);
 }
 
 // Return response
@@ -193,6 +240,6 @@ if ($sent) {
     echo "OK";
 } else {
     http_response_code(500);
-    echo "Failed to send email. Please try again or contact us directly at info@life-coaching-works.com";
+    echo "Failed to send email. Please try again or contact us directly at info@life-coachingworks.com";
 }
 ?>
