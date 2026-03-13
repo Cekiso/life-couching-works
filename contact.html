@@ -8,10 +8,8 @@
   <meta name="keywords" content="">
   <title>Contact - Life Coaching Works</title>
 
-
   <!-- Favicons -->
   <link href="assets/img/works-logo.png" rel="icon">
-
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -28,52 +26,258 @@
 
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
- <!-- =======================================================
-  * Template Name: life coaching works
-  * Template URL: https://bootstrapmade.com/life-couchingworks-bootstrap-landing-page-template/
-  * Updated: Aug 07 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+
+  <style>
+    /* ── Contact page specific styles ── */
+
+    .wa-card {
+      background-color: var(--surface-color);
+      border: 1px solid color-mix(in srgb, var(--default-color), transparent 85%);
+      border-radius: 8px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      box-shadow: 0 3px 20px -2px rgba(0,0,0,.08);
+      transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+      height: 100%;
+    }
+
+    .wa-card:hover {
+      border-color: var(--accent-color);
+      box-shadow: 0 8px 32px rgba(0,0,0,.12);
+      transform: translateY(-3px);
+    }
+
+    .wa-card h2 {
+      font-family: var(--heading-font);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--heading-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .wa-card > p {
+      font-size: 0.9rem;
+      color: var(--default-color);
+      line-height: 1.7;
+      margin-bottom: 1.75rem;
+    }
+
+    .wa-icon-circle {
+      width: 5rem;
+      height: 5rem;
+      border-radius: 50%;
+      background: color-mix(in srgb, #25D366, transparent 88%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+
+    .wa-icon-circle i {
+      font-size: 2.2rem;
+      color: #25D366;
+    }
+
+    .btn-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background-color: #25D366;
+      color: #ffffff;
+      font-family: var(--nav-font);
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 0.8rem 1.75rem;
+      border-radius: 50px;
+      border: none;
+      text-decoration: none;
+      transition: background-color 0.3s, transform 0.2s;
+      width: 100%;
+      max-width: 18rem;
+      justify-content: center;
+    }
+
+    .btn-whatsapp:hover {
+      background-color: #1ebe5d;
+      color: #fff;
+      transform: scale(1.02);
+    }
+
+    .phone-label {
+      font-size: 0.82rem;
+      color: var(--default-color);
+      margin-top: 0.75rem;
+      display: block;
+    }
+
+    .qr-box {
+      border: 1px solid color-mix(in srgb, var(--default-color), transparent 85%);
+      border-radius: 8px;
+      background: var(--background-color);
+      padding: 1rem;
+      display: inline-block;
+    }
+
+    .qr-box img {
+      display: block;
+      width: 100%;
+      max-width: 15rem;
+      height: auto;
+      border-radius: 4px;
+    }
+
+    .qr-hint {
+      font-size: 0.75rem;
+      color: var(--default-color);
+      margin-top: 0.75rem;
+      margin-bottom: 0;
+    }
+
+    .info-tile {
+      background-color: var(--surface-color);
+      border: 1px solid color-mix(in srgb, var(--default-color), transparent 85%);
+      border-radius: 8px;
+      padding: 1.25rem 1rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,.05);
+      transition: border-color 0.3s, box-shadow 0.3s;
+      height: 100%;
+    }
+
+    .info-tile:hover {
+      border-color: var(--accent-color);
+      box-shadow: 0 4px 18px rgba(0,0,0,.09);
+    }
+
+    .info-tile[data-copy],
+    .info-tile[data-href] { cursor: pointer; }
+
+    .tile-icon {
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: 50px;
+      background: color-mix(in srgb, var(--accent-color), transparent 92%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.3s;
+    }
+
+    .info-tile:hover .tile-icon { background: var(--accent-color); }
+
+    .tile-icon i {
+      font-size: 1.1rem;
+      color: var(--accent-color);
+      transition: color 0.3s;
+    }
+
+    .info-tile:hover .tile-icon i { color: var(--contrast-color); }
+
+    .tile-title {
+      font-family: var(--heading-font);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--heading-color);
+      margin-bottom: 0.15rem;
+    }
+
+    .tile-detail {
+      font-size: 0.8rem;
+      color: var(--default-color);
+      margin: 0;
+    }
+
+    .quote-strip {
+      background: color-mix(in srgb, var(--accent-color), transparent 96%);
+      border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 88%);
+      border-bottom: 1px solid color-mix(in srgb, var(--default-color), transparent 88%);
+      padding: 3rem 1.5rem;
+      text-align: center;
+    }
+
+    .quote-strip i {
+      font-size: 1.2rem;
+      color: var(--accent-color);
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    .quote-strip blockquote {
+      font-family: var(--heading-font);
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--heading-color);
+      max-width: 34rem;
+      margin: 0 auto 0.6rem;
+      line-height: 1.7;
+    }
+
+    .quote-attr {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--default-color);
+    }
+
+    /* Toast */
+    #toast {
+      position: fixed;
+      bottom: 1.75rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(3rem);
+      background: var(--heading-color);
+      color: var(--contrast-color);
+      font-family: var(--nav-font);
+      font-size: 0.8rem;
+      padding: 0.6rem 1.4rem;
+      border-radius: 50px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.2);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s, transform 0.3s;
+      z-index: 9999;
+    }
+
+    #toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
 </head>
 
 <body class="contact-page">
 
+  <!-- Toast -->
+  <div id="toast"></div>
+
+  <!-- Header -->
   <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
 
-      <a href="/pages/index.html" class="logo d-flex align-items-center">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
+      <a href="index.html" class="logo d-flex align-items-center">
         <img src="assets/img/works-logo.png" alt="">
-        <!-- <h1 class="sitename">Avilon</h1> -->
       </a>
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="/pages/index.html" >Home</a></li>
-          <li><a href="/pages/About.html" >About</a></li>
-          <li><a href="/pages/programs.html" >Programs</a></li>
-          <li><a href="/pages/workshop.html" >Workshops</a></li>
-          <li><a href="/pages/coaching.html" >Coaching</a></li>
-          <li><a href="/pages/speaker.html" >Speaking</a></li>
-          <!-- <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="About.html">About</a></li>
+          <li><a href="programs.html">Programs</a></li>
+          <li><a href="workshop.html">Workshops</a></li>
+          <li><a href="coaching.html">Coaching</a></li>
+          <li><a href="speaker.html">Speaking</a></li>
+          <li class="dropdown"><a href="#"><span>Dropdown</span>
+            <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
-              <li><a href="#">Dropdown 1</a></li>
-              <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                <ul>
-                  <li><a href="#">Deep Dropdown 1</a></li>
-                  <li><a href="#">Deep Dropdown 2</a></li>
-                  <li><a href="#">Deep Dropdown 3</a></li>
-                  <li><a href="#">Deep Dropdown 4</a></li>
-                  <li><a href="#">Deep Dropdown 5</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Dropdown 2</a></li>
-              <li><a href="#">Dropdown 3</a></li>
-              <li><a href="#">Dropdown 4</a></li>
+              <li><a href="books.html">Books</a></li>
+              <li><a href="programmes.html">Programmes</a></li>
             </ul>
-          </li> -->
-          <li><a href="contact.html">Contact</a></li>
+          </li>
+          <li><a href="contact.html" class="active">Contact</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
@@ -90,321 +294,163 @@
         <p>Ready to transform your life? We'd love to hear from you and discuss how we can help you reach your goals.</p>
         <nav class="breadcrumbs">
           <ol>
-            <li><a href="/pages/index.html">Home</a></li>
-            <li class="current">Contact page</li>
+            <li><a href="index.html">Home</a></li>
+            <li class="current">Contact</li>
           </ol>
         </nav>
       </div>
-    </div><!-- End Page Title -->
-
-    <section class="py-5 bg-light text-center text-dark">
-  <div class="container">
-    <div class="row g-4">
-      <!-- Example Card 1 -->
-      <div class="col-12 col-md-6 col-lg-3">
-        <div class="card h-100 border-0 shadow-sm hover-shadow">
-          <div class="card-body p-4">
-            <i class="bi bi-telephone-fill mb-3" style="font-size: 2rem; color:#5f316b"></i>
-            <h5 class="card-title mb-2">Phone/WhatsApp</h5>
-            <p class="text-primary fw-semibold mb-1">+27 74 561 7308</p>
-            <p class="text-muted small">Call or message us directly</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Example Card 2 -->
-      <div class="col-12 col-md-6 col-lg-3">
-        <div class="card h-100 border-0 shadow-sm hover-shadow">
-          <div class="card-body p-4">
-            <i class="bi bi-envelope-fill  mb-3" style="font-size: 2rem; color:#5f316b"></i>
-            <h5 class="card-title mb-2">Email Us</h5>
-            <p class="text-primary fw-semibold mb-1">info@life-coachingworks.com</p>
-            <p class="text-muted small">Get in touch for any inquiries</p>
-          </div>
-        </div>
-      </div>
-      <!-- Example Card 3 -->
-      <div class="col-12 col-md-6 col-lg-3">
-        <div class="card h-100 border-0 shadow-sm hover-shadow">
-          <div class="card-body p-4">
-            <i class="bi bi-globe  mb-3" style="font-size: 2rem; color:#5f316b"></i>
-            <h5 class="card-title mb-2">Website</h5>
-            <p class="text-primary fw-semibold mb-1">www.life-coachingworks.com</p>
-            <p class="text-muted small">Visit our main website</p>
-          </div>
-        </div>
-      </div>
-      <!-- Example Card 4 -->
-      <div class="col-12 col-md-6 col-lg-3">
-        <div class="card h-100 border-0 shadow-sm hover-shadow">
-          <div class="card-body p-4">
-            <i class="bi bi-geo-alt  mb-3" style="font-size: 2rem; color:#5f316b"></i>
-            <h5 class="card-title mb-2">Availability</h5>
-            <p class="text-primary fw-semibold mb-1">Available Globally</p>
-            <p class="text-muted small">Virtual coaching sessions worldwide</p>
-          </div>
-        </div>
-      </div>
-      <!-- Add more cards as needed -->
     </div>
-  </div>
-</section>
-<!-- contact form -->
- <section class="py-5">
-  <div class="container">
-    <div class="row gx-4 gy-5">
-      
-      <!-- Contact Form -->
-      <div class="col-12 col-lg-6">
-        <h2 class="fw-bold mb-4">Send Us a Message</h2>
-        <p class="text-muted mb-4">
-          Fill out the form below and we'll get back to you within 24 hours.
-        </p>
-      <form action="https://formspree.io/f/xzznwkgp" 
-      method="POST" 
-      class="php-email-form" 
-      data-redirect-to-booking
-      data-aos="fade-up" 
-      novalidate>
-           <div class="mb-3">
-            <label for="fullName" class="form-label">Full Name *</label>
-            <input type="text" name="name" id="fullName" class="form-control" placeholder="Enter your full name" required="">
-          </div>
-          <div class="mb-3">
-            <label for="email" class="form-label">Email Address *</label>
-            <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email address" required="">
-          </div>
-          <div class="mb-3" id="phoneField" style="display: none;">
-            <label for="phone" class="form-label">Phone Number *</label>
-            <input type="tel" id="phone" name="phone" class="form-control" placeholder="Enter your phone number">
-          </div>
-          <div class="mb-3">
-            <label for="helpType" class="form-label">How can we help you? *</label>
-            <select id="helpType" name="helpType" class="form-select" required>
-              <option selected disabled value="">Select an option</option>
-              <option value="discovery-call">Book a Free Discovery Call</option>
-              <option value="coaching">Private Coaching Inquiry</option>
-              <option value="group-coaching">Group Coaching</option>
-              <option value="program">Program Information</option>
-              <option value="workshop">Workshop Inquiry</option>
-              <option value="speaking">Speaking Engagement</option>
-              <option value="membership">Membership Information</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-          <fieldset class="mb-3">
-            <legend class="form-label">Preferred Contact Method</legend>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="contactMethod" id="contactEmail" value="email" checked>
-              <label class="form-check-label" for="contactEmail">Email</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="contactMethod" id="contactPhone" value="phone">
-              <label class="form-check-label" for="contactPhone">Phone</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="contactMethod" id="contactWhatsApp" value="whatsapp">
-              <label class="form-check-label" for="contactWhatsApp">WhatsApp</label>
-            </div>
-          </fieldset>
-          <div class="mb-4">
-            <label for="message" class="form-label">Message</label>
-            <textarea id="message" name="message" class="form-control" rows="5" placeholder="Tell us more about what you're looking for..."></textarea>
-          </div>
-          
-          <!-- Loading and Message Elements -->
-          <div class="loading d-none mb-3">
-            <div class="spinner-border spinner-border-sm me-2" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-            Sending your message...
-          </div>
-          <div class="error-message d-none mb-3 alert alert-danger" role="alert"></div>
-          <div class="sent-message d-none mb-3 alert alert-success" role="alert">
-            <i class="bi bi-check-circle-fill me-2"></i>
-            Your message has been sent successfully. We'll get back to you within 24 hours!
-          </div>
-          
-          <button type="submit" class="btn btn-primary btn-lg w-100">
-            <i class="bi bi-send-fill me-2"></i>
-            Send Message
-          </button>
-        </form>
-      </div>
-      
-      <!-- Discovery Call Info -->
-      <div class="col-12 col-lg-6">
-        <!-- Card 1: Discovery Call -->
-        <div class="card border-primary mb-4 shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title d-flex align-items-center">
-              <i class="bi bi-calendar-event-fill  me-2" style="color:#5f316b"></i>
-              Free 30‑Minute Discovery Call
-            </h5>
-            <p class="card-text text-muted mb-4">
-              Not sure where to start? Book a complimentary discovery session with Lindiwe to explore your goals and find the best path forward.
-            </p>
-            <ul class="list-unstyled mb-4">
-              <li class="d-flex align-items-center mb-2">
-                <i class="bi bi-clock-fill me-2" style="color:#5f316b"></i>
-                30 minutes of focused conversation
-              </li>
-              <li class="d-flex align-items-center mb-2">
-                <i class="bi bi-globe me-2" style="color:#5f316b"></i>
-                Virtual session via Zoom
-              </li>
-              <li class="d-flex align-items-center">
-                <i class="bi bi-envelope-fill me-2" style="color:#5f316b"></i>
-                No obligation or pressure
-              </li>
-            </ul>
-            <p> <b>coming soon</b> </p>
-            <!-- <button class="btn btn-primary btn-lg w-100" style="background-color: rgb(100,108,146)">
-              <i class="bi bi-calendar2-check-fill me-2"></i>
-              Book Your Discovery Call
-            </button> -->
 
+    <!-- WhatsApp Cards -->
+    <section class="section">
+      <div class="container">
+
+        <div class="row g-4 justify-content-center mb-4">
+
+          <!-- Chat card -->
+          <div class="col-md-6 col-lg-5">
+            <div class="wa-card">
+              <div class="wa-icon-circle">
+                <i class="bi bi-whatsapp"></i>
+              </div>
+              <h2>Chat with Lindiwe</h2>
+              <p>Start a WhatsApp conversation instantly. We respond within minutes during business hours.</p>
+              <a href="https://wa.me/27745617308?text=Hi%20Lindiwe%2C%20I%27d%20like%20to%20learn%20more%20about%20Life%20Coaching%20Works%20and%20your%20services."
+                 target="_blank" rel="noopener noreferrer" class="btn-whatsapp">
+                <i class="bi bi-whatsapp"></i>
+                Message on WhatsApp
+              </a>
+              <span class="phone-label">+27 74 561 7308</span>
+            </div>
           </div>
+
+          <!-- QR card -->
+          <div class="col-md-6 col-lg-5">
+            <div class="wa-card">
+              <h2>Scan to Connect</h2>
+              <p>Point your phone camera at this code to open WhatsApp directly.</p>
+              <div class="qr-box">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=https%3A%2F%2Fwa.me%2F27745617308%3Ftext%3DHi%2520Lindiwe%252C%2520I%27d%2520like%2520to%2520learn%2520more%2520about%2520Life%2520Coaching%2520Works%2520and%2520your%2520services.&color=5f316b&bgcolor=FFFFFF&margin=10"
+                     alt="WhatsApp QR code for Life Coaching Works" loading="lazy" />
+              </div>
+              <p class="qr-hint">Opens with a pre-filled greeting message</p>
+            </div>
+          </div>
+
         </div>
 
-        <!-- Card 2: What to Expect -->
-        <div class="card mb-4 shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title">What to Expect</h5>
-            <div class="mt-3">
-              <h6 class="fw-semibold">Clarity Session</h6>
-              <p class="text-muted small">We'll explore your current situation and desired outcomes</p>
-            </div>
-            <div class="mt-3">
-              <h6 class="fw-semibold">Personalized Insights</h6>
-              <p class="text-muted small">Receive tailored advice based on your unique circumstances</p>
-            </div>
-            <div class="mt-3">
-              <h6 class="fw-semibold">Next Steps</h6>
-              <p class="text-muted small">Clear recommendations for your transformation journey</p>
-            </div>
-          </div>
-        </div>
+        <!-- Info tiles -->
+        <div class="row g-3 justify-content-center">
 
-        <!-- Card 3: Available Globally -->
-        <div class="card shadow-sm bg-light text-dark">
-          <div class="card-body">
-            <h5 class="card-title mb-3">Available Globally</h5>
-            <p class="card-text small">
-              Lindiwe offers virtual coaching sessions to clients worldwide. Distance is no barrier to transformation when you're ready to invest in yourself.
-            </p>
+          <div class="col-6 col-md-3">
+            <div class="info-tile" data-copy="+27745617308" title="Click to copy">
+              <div class="tile-icon"><i class="bi bi-telephone"></i></div>
+              <div>
+                <p class="tile-title">Call Us</p>
+                <p class="tile-detail">+27 74 561 7308</p>
+              </div>
+            </div>
           </div>
+
+          <div class="col-6 col-md-3">
+            <div class="info-tile" data-copy="info@life-coachingworks.com" title="Click to copy">
+              <div class="tile-icon"><i class="bi bi-envelope"></i></div>
+              <div>
+                <p class="tile-title">Email</p>
+                <p class="tile-detail">info@life-coachingworks.com</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6 col-md-3">
+            <div class="info-tile" data-href="https://www.life-coachingworks.com" title="Visit website">
+              <div class="tile-icon"><i class="bi bi-globe"></i></div>
+              <div>
+                <p class="tile-title">Website</p>
+                <p class="tile-detail">life-coachingworks.com</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6 col-md-3">
+            <div class="info-tile">
+              <div class="tile-icon"><i class="bi bi-clock"></i></div>
+              <div>
+                <p class="tile-title">Available</p>
+                <p class="tile-detail">Globally · Virtual Sessions</p>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
+    </section>
 
+    <!-- Quote Strip -->
+    <div class="quote-strip">
+      <i class="bi bi-stars"></i>
+      <blockquote>"Lindiwe's favorite moments? Watching the light return to someone's eyes when they realise—truly realise—they are not stuck, they are simply becoming."</blockquote>
     </div>
-  </div>
-</section>
-<!-- Discovery Call Modal -->
-<div class="modal fade" id="discoveryModal" tabindex="-1" aria-labelledby="discoveryModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="discoveryModalLabel">
-          <i class="bi bi-calendar2-check-fill me-2"></i>
-          Book Your Discovery Call
-        </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="alert alert-info mb-4">
-          <i class="bi bi-camera-video-fill me-2"></i>
-          <strong>Virtual Zoom Session</strong> - All discovery calls are conducted via Zoom for your convenience
-        </div>
-        
-        <p class="mb-3">To book your free 30-minute virtual discovery call with Lindiwe via Zoom, please choose an option:</p>
-        
-        <div class="d-grid gap-3">
-          <!-- Option 1: Email (Primary Option) -->
-          <a href="mailto:info@life-coaching-works.com?subject=Zoom%20Discovery%20Call%20Request&body=Hi%20Lindiwe,%0D%0A%0D%0AI%27d%20like%20to%20book%20a%20free%2030-minute%20virtual%20discovery%20call%20via%20Zoom.%0D%0A%0D%0A━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━%0D%0A%0D%0AYOUR%20DETAILS:%0D%0A%0D%0AFull%20Name:%20%0D%0A%0D%0AEmail%20Address:%20%0D%0A%0D%0APhone%20Number%20(optional):%20%0D%0A%0D%0A━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━%0D%0A%0D%0APREFERRED%20SCHEDULE:%0D%0A%0D%0AOption%201%20-%20Date:%20%0D%0AOption%201%20-%20Time:%20%0D%0A%0D%0AOption%202%20-%20Date:%20%0D%0AOption%202%20-%20Time:%20%0D%0A%0D%0AOption%203%20-%20Date:%20%0D%0AOption%203%20-%20Time:%20%0D%0A%0D%0AYour%20Time%20Zone:%20%0D%0A%0D%0A━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━%0D%0A%0D%0AWHAT%20TO%20DISCUSS:%0D%0A%0D%0APlease%20share%20briefly%20what%20you%27d%20like%20to%20focus%20on%20during%20our%20call:%0D%0A%0D%0A%0D%0A%0D%0A━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━%0D%0A%0D%0AThank%20you!%20I%20look%20forward%20to%20connecting%20with%20you.%0D%0A%0D%0ALindiwe%20will%20send%20you%20a%20Zoom%20link%20once%20the%20call%20is%20confirmed." 
-             class="btn btn-primary btn-lg">
-            <i class="bi bi-envelope-at-fill me-2"></i>
-            Email to Schedule Zoom Call
-          </a>
-          <small class="text-muted text-center mb-3">
-            <i class="bi bi-info-circle me-1"></i>
-            Opens your email app with a pre-filled message. You'll receive a Zoom link once confirmed.
-          </small>
-          
-          <hr class="my-2">
-          <p class="text-center text-muted small mb-2">Other ways to schedule:</p>
-          
-          <!-- Option 2: Fill form with Discovery Call pre-selected -->
-          <button type="button" class="btn btn-outline-primary btn-lg" id="fillFormBtn">
-            <i class="bi bi-envelope-fill me-2"></i>
-            Fill Contact Form
-          </button>
-        </div>
-      </div>
-       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
- <!-- contact form -->
 
   </main>
 
-    <footer id="footer" class="footer light-background">
+  <!-- Footer -->
+  <footer id="footer" class="footer">
     <div class="container">
-      <h3 class="sitename">Life Coaching Works</h3>
-      <p>Life Coaching Works is a transformative coaching service targeting professionals at various career stages.</p>
+      <h3>Life Coaching Works</h3>
+      <p>Empowering lives, one conversation at a time.</p>
       <div class="social-links d-flex justify-content-center">
-        <!-- <a href="#"><i class="bi bi-twitter-x"></i></a> -->
-        <a href="https://www.facebook.com/share/16H2MY2Jxg/"><i class="bi bi-facebook"></i></a>
-        <a href="https://www.instagram.com/stories/lindiwe.radebe66/3679529287610140161?utm_source=ig_story_item_share&igsh=NTc4MTIwNjQ2YQ==
-"><i class="bi bi-instagram"></i></a>
-        <a href="https://vm.tiktok.com/ZSHv8BCBg3YHF-TxXBq/"><i class="bi bi-tiktok"></i></a>
-        <a href="https://www.linkedin.com/in/lindiwe-radebe-7409b2171/"><i class="bi bi-linkedin"></i></a>
-        <a href="https://wa.me/+27745617308"><i class="bi bi-whatsapp"></i></a>
-
+        <a href="#"><i class="bi bi-facebook"></i></a>
+        <a href="#"><i class="bi bi-instagram"></i></a>
+        <a href="#"><i class="bi bi-whatsapp"></i></a>
       </div>
-      <div class="container">
-        <div class="copyright">
-          <span>Copyright</span> <strong class="px-1 sitename">Life Coaching Works</strong> <span>All Rights Reserved</span>
-        </div>
-        <div class="credits"
-           2024 Life Coaching Works. Made with by Lindiwe Radebe
-        </div>
+      <div class="copyright">
+        © 2024 <strong>Copyright Life Coaching Works All Rights Reserved
       </div>
     </div>
   </footer>
 
   <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+  </a>
 
   <!-- Preloader -->
   <div id="preloader"></div>
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
   <script src="assets/vendor/aos/aos.js"></script>
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
-  <!-- At the bottom, before </body> -->
-<script src="config.js"></script>
-<script src="validate.js"></script>
-  <!-- <script src="path/to/form-handler.js"></script> -->
 
+  <script>
+    // Toast helper
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(t._tid);
+      t._tid = setTimeout(() => t.classList.remove('show'), 2400);
+    }
+
+    // Copy to clipboard
+    document.querySelectorAll('[data-copy]').forEach(el => {
+      el.addEventListener('click', () => {
+        navigator.clipboard.writeText(el.dataset.copy)
+          .then(() => showToast('Copied: ' + el.dataset.copy))
+          .catch(() => showToast('Could not copy — try manually'));
+      });
+    });
+
+    // External links
+    document.querySelectorAll('[data-href]').forEach(el => {
+      el.addEventListener('click', () => window.open(el.dataset.href, '_blank', 'noopener'));
+    });
+  </script>
 
 </body>
-
 </html>
-<!-- TO-DO 
- 1. HAVE TO CHECK THE NUMBERS TO BE WRITTEN CORRECTLY 
- 2. CLEAN MY CODE
- 3. FINAL PUSH
- 4. CHECK THE NAV BAR FOR BOOKING AND ADD THE PROGRAMES PAGE IF ITS WORKING 
- 5. ASK FOR THE LOGINS FOR THE EMAIL ADDRESS (TO CONFARM IT ITS FULLY FUNCTIONING WITH FROMPREE)
--->
