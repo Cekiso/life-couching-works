@@ -27,7 +27,24 @@
     }
     mobileNavToggleBtn.addEventListener('click', mobileNavToogle);
   }
+  // ✅ ADD THIS BLOCK RIGHT HERE 👇
+/**
+ * Dropdown toggle on mobile
+ */
+document.querySelectorAll('.navmenu .toggle-dropdown').forEach(function(toggle) {
+  toggle.addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
 
+    const parentLi = this.closest('.dropdown');
+    parentLi.classList.toggle('dropdown-active');
+
+    // Also toggle any nested dropdowns
+    parentLi.querySelectorAll('.dropdown').forEach(function(childDropdown) {
+      childDropdown.classList.remove('dropdown-active');
+    });
+  });
+});
   /**
    * Preloader
    */

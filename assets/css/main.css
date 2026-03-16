@@ -1741,7 +1741,16 @@ section,
     padding: 0.875rem;
   }
 }
+@media (max-width: 1199px) {
+  .navmenu .dropdown ul {
+    display: none;
+    padding-left: 10px;
+  }
 
+  .navmenu .dropdown.dropdown-active > ul {
+    display: block;
+  }
+}
 /*--------------------------------------------------------------
 # Starter Section
 --------------------------------------------------------------*/
